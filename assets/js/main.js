@@ -9,34 +9,38 @@ getLocalStorage();
 function showList(list) {
   document.getElementById("furnitureList").innerHTML = '';
 
-  list.forEach(function (furniture) {
-    let checkItem = furniture.checked ? 'checked' : null;
-    let li = document.createElement('li');
-    li.classList.add('list-group-item');
-    li.classList.add('clearfix');
-    furniture.checked ? li.classList.add('checked') : '';
-    let index = list.findIndex(object => {
-      return object.item === furniture.item;
+  if(list !== null)
+  {
+    list.forEach(function (furniture) {
+      let checkItem = furniture.checked ? 'checked' : null;
+      let li = document.createElement('li');
+      li.classList.add('list-group-item');
+      li.classList.add('clearfix');
+      furniture.checked ? li.classList.add('checked') : '';
+      let index = list.findIndex(object => {
+        return object.item === furniture.item;
+      });
+      if (furniture.checked == true) {
+        li.innerHTML =
+          `<input type="checkbox" class="checkItem" id="myCheck-${index}" ${checkItem} onclick="checkFurniture(${index})">
+    <span id="items-${index}" class="textInput text-decoration-line-through">${furniture.item}</span>
+    <span class="pull-right">
+      <button class="btn btn-dark btn-delete" id="deleteItem" onclick="deleteList(${index})">x</button>
+    </span>`;
+        document.getElementById("furnitureList").append(li);
+      }
+      else {
+        li.innerHTML =
+          `<input type="checkbox" class="checkItem" id="myCheck-${index}" ${checkItem} onclick="checkFurniture(${index})">
+    <span id="items-${index}" class="textInput">${furniture.item}</span>
+    <span class="pull-right">
+      <button class="btn btn-dark btn-delete" id="deleteItem" onclick="deleteList(${index})">x</button>
+    </span>`;
+        document.getElementById("furnitureList").append(li);
+      }
     });
-    if (furniture.checked == true) {
-      li.innerHTML =
-        `<input type="checkbox" class="checkItem" id="myCheck-${index}" ${checkItem} onclick="checkFurniture(${index})">
-  <span id="items-${index}" class="textInput text-decoration-line-through">${furniture.item}</span>
-  <span class="pull-right">
-    <button class="btn btn-dark btn-delete" id="deleteItem" onclick="deleteList(${index})">x</button>
-  </span>`;
-      document.getElementById("furnitureList").append(li);
-    }
-    else {
-      li.innerHTML =
-        `<input type="checkbox" class="checkItem" id="myCheck-${index}" ${checkItem} onclick="checkFurniture(${index})">
-  <span id="items-${index}" class="textInput">${furniture.item}</span>
-  <span class="pull-right">
-    <button class="btn btn-dark btn-delete" id="deleteItem" onclick="deleteList(${index})">x</button>
-  </span>`;
-      document.getElementById("furnitureList").append(li);
-    }
-  });
+  }
+  
 }
 
 
